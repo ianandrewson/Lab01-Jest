@@ -4,7 +4,8 @@ const {
   getCaster,
   isString,
   castToString,
-  isBoolean
+  isBoolean,
+  castToBoolean
 } = require('../lib/types.js');
 
 describe('validator module', () => {
@@ -74,9 +75,22 @@ describe('validator module', () => {
     });
 
     it('can cast values to a boolean', () => {
-
+      expect(castToBoolean(9)).toBeTruthy();
+      expect(castToBoolean('hello world')).toBeTruthy();
+      expect(castToBoolean(true)).toBeTruthy();
+      expect(castToBoolean(undefined)).toBeFalsy();
+      expect(castToBoolean(false)).toBeFalsy();
+      expect(castToBoolean([1, 2])).toBeTruthy();
+      expect(castToBoolean([])).toBeTruthy();
+      expect(castToBoolean(0)).toBeFalsy();
+      expect(castToBoolean('')).toBeFalsy();
+      expect(castToBoolean(null)).toBeFalsy();
+      expect(castToBoolean(undefined)).toBeFalsy();
+      expect(castToBoolean(NaN)).toBeFalsy();
+      expect(castToBoolean({})).toBeTruthy();
+      expect(castToBoolean(() => {})).toBeTruthy();
     });
-    it('throws if value is not castable to a boolean', () => {
+    it('throws no error since everything can be converted to a boolean', () => {
 
     });
 
