@@ -6,7 +6,8 @@ const {
   castToString,
   isBoolean,
   castToBoolean,
-  isArray
+  isArray,
+  castToArray
 } = require('../lib/types.js');
 
 describe('validator module', () => {
@@ -109,7 +110,20 @@ describe('validator module', () => {
     });
 
     it('can cast values to an array', () => {
-
+      expect(castToArray(9)).toEqual([9]);
+      expect(castToArray('hello world')).toEqual(['hello world']);
+      expect(castToArray(true)).toEqual([true]);
+      expect(castToArray(undefined)).toEqual([undefined]);
+      expect(castToArray(false)).toEqual([false]);
+      expect(castToArray([1, 2])).toEqual([1, 2]);
+      expect(castToArray([])).toEqual([]);
+      expect(castToArray(0)).toEqual([0]);
+      expect(castToArray('')).toEqual(['']);
+      expect(castToArray(null)).toEqual([null]);
+      expect(castToArray(NaN)).toEqual([NaN]);
+      expect(castToArray({})).toEqual([{}]);
+      const funkytion = () => {};
+      expect(castToArray(funkytion)).toEqual([funkytion]);
     });
     it('throws if value is not castable to an array', () => {
 
