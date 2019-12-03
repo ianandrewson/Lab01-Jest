@@ -7,7 +7,8 @@ const {
   isBoolean,
   castToBoolean,
   isArray,
-  castToArray
+  castToArray,
+  isObject
 } = require('../lib/types.js');
 
 describe('validator module', () => {
@@ -57,7 +58,20 @@ describe('validator module', () => {
       expect(isArray(() => {})).toBeFalsy();
     });
     it('properly tells if a value is an object', () => {
-
+      expect(isObject([1, 2])).toBeFalsy();
+      expect(isObject([])).toBeFalsy();
+      expect(isObject(9)).toBeFalsy();
+      expect(isObject('hello world')).toBeFalsy();
+      expect(isObject(true)).toBeFalsy();
+      expect(isObject(undefined)).toBeFalsy();
+      expect(isObject(false)).toBeFalsy();
+      expect(isObject(0)).toBeFalsy();
+      expect(isObject('')).toBeFalsy();
+      expect(isObject(null)).toBeTruthy();
+      expect(isObject(undefined)).toBeFalsy();
+      expect(isObject(NaN)).toBeFalsy();
+      expect(isObject({})).toBeTruthy();
+      expect(isObject(() => {})).toBeFalsy();
     });
     it('properly tells if a value is a function', () => {
 
@@ -106,7 +120,6 @@ describe('validator module', () => {
       expect(castToBoolean(() => {})).toBeTruthy();
     });
     it('throws no error since everything can be converted to a boolean', () => {
-
     });
 
     it('can cast values to an array', () => {
@@ -125,8 +138,7 @@ describe('validator module', () => {
       const funkytion = () => {};
       expect(castToArray(funkytion)).toEqual([funkytion]);
     });
-    it('throws if value is not castable to an array', () => {
-
+    it('throws no error since everything can be put into an array', () => {
     });
   });
 
