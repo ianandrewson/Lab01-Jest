@@ -8,7 +8,8 @@ const {
   castToBoolean,
   isArray,
   castToArray,
-  isObject
+  isObject,
+  isFunction
 } = require('../lib/types.js');
 
 describe('validator module', () => {
@@ -74,7 +75,20 @@ describe('validator module', () => {
       expect(isObject(() => {})).toBeFalsy();
     });
     it('properly tells if a value is a function', () => {
-
+      expect(isFunction([1, 2])).toBeFalsy();
+      expect(isFunction([])).toBeFalsy();
+      expect(isFunction(9)).toBeFalsy();
+      expect(isFunction('hello world')).toBeFalsy();
+      expect(isFunction(true)).toBeFalsy();
+      expect(isFunction(undefined)).toBeFalsy();
+      expect(isFunction(false)).toBeFalsy();
+      expect(isFunction(0)).toBeFalsy();
+      expect(isFunction('')).toBeFalsy();
+      expect(isFunction(null)).toBeFalsy();
+      expect(isFunction(undefined)).toBeFalsy();
+      expect(isFunction(NaN)).toBeFalsy();
+      expect(isFunction({})).toBeFalsy();
+      expect(isFunction(() => {})).toBeTruthy();
     });
   });
 
